@@ -1,0 +1,21 @@
+[package]
+name = "webworker"
+version = "0.1.0"
+authors = ["Daniel Olano <daniel@olanod.com>"]
+edition = "2018"
+
+[dependencies]
+futures = "0.3.6"
+serde = { version = "1.0", default-features = false }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+deno_core = "0.64.0"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = { version = "0.2.68", features = ["serde-serialize"] }
+web-sys = { version = "0.3.45", features = ["Worker", "MessageEvent"] }
+
+[workspace]
+members = [
+	"examples/hello_worker"
+]
